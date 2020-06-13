@@ -29,8 +29,12 @@
     return array;
   }
 
+  //シャッフルされた選択肢の配列
+  //スプレッド演算子で配列の要素を展開
+  //スプレッド演算子を[]の中に書くことで新しいコピーの配列を作れる
+  const shuffledChoices = shuffle([...quizSet[currentNum].c]);
   // 現在の問題文の選択肢を表示
-  quizSet[currentNum].c.forEach((choice) => {
+  shuffledChoices.forEach((choice) => {
     const li = document.createElement("li");
     li.textContent = choice;
     choices.appendChild(li);
