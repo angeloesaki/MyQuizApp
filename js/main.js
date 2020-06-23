@@ -30,9 +30,9 @@
   //正誤判定機能
   function checkAnswer(li) {
     if (li.textContent === quizSet[currentNum].c[0]) {
-      console.log("correct");
+      li.classList.add("correct");
     } else {
-      console.log("incorrect");
+      li.classList.add("wrong");
     }
   }
 
