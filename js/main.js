@@ -77,11 +77,24 @@
       });
       choices.appendChild(li);
     });
+
+    //最後の問題の時のNextボタンのテキストを設定
+    if (currentNum === quizSet.length - 1) {
+      button.textContent = "Show Score";
+    }
   }
 
   setQuiz();
 
   button.addEventListener("click", () => {
+    //Nextボタンにdisabledクラスがついていたら、その後の処理、つまり、次の問題へ進む処理をしない
+    if (button.classList.contains("disabled")) {
+      return;
+    }
+
+    //次の問題に行く時にNextボタンを無効化する
+    button.classList.add("disabled");
+
     currentNum++;
     setQuiz();
   });
