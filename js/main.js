@@ -45,6 +45,9 @@
     } else {
       li.classList.add("wrong");
     }
+
+    //Nextボタンを使えるようにする
+    button.classList.remove("disabled");
   }
 
   //現在の問題番号のシャッフルされた選択肢を表示
@@ -53,6 +56,13 @@
     isAnswered = false;
     //現在の問題番号の問題文を代入
     question.textContent = quizSet[currentNum].q;
+
+    //setQuizで回答の選択肢を表示する前に、一度全部の選択肢を消してあげる
+    //ループを回す
+    //()の中の値がfalseまたはnullになるまで回る
+    while (choices.firstChild) {
+      choices.removeChild(choices.firstChild);
+    }
 
     //シャッフルされた選択肢の配列
     //スプレッド演算子で配列の要素を展開
@@ -70,4 +80,9 @@
   }
 
   setQuiz();
+
+  button.addEventListener("click", () => {
+    currentNum++;
+    setQuiz();
+  });
 }
