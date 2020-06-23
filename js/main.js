@@ -13,6 +13,8 @@
   let currentNum = 0;
   //回答したかどうかという変数（真偽値）
   let isAnswered;
+  //正答数
+  let score = 0;
 
   //引数に受け取った配列をシャッフルしてから返す関数
   function shuffle(array) {
@@ -42,6 +44,7 @@
 
     if (li.textContent === quizSet[currentNum].c[0]) {
       li.classList.add("correct");
+      score++;
     } else {
       li.classList.add("wrong");
     }
@@ -95,7 +98,12 @@
     //次の問題に行く時にNextボタンを無効化する
     button.classList.add("disabled");
 
-    currentNum++;
-    setQuiz();
+    //最後の問題だったら
+    if (currentNum === quizSet.length - 1) {
+      console.log(`Score: ${score} / ${quizSet.length}`);
+    } else {
+      currentNum++;
+      setQuiz();
+    }
   });
 }
