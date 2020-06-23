@@ -11,6 +11,8 @@
   ];
   //現在の問題番号
   let currentNum = 0;
+  //回答したかどうかという変数（真偽値）
+  let isAnswered;
 
   //引数に受け取った配列をシャッフルしてから返す関数
   function shuffle(array) {
@@ -29,6 +31,15 @@
 
   //正誤判定機能
   function checkAnswer(li) {
+    //もしも回答する前に回答したか否かの変数がtrueだったら、つまり回答済みだったら、これ以降の正誤判定の処理はしないでね
+    // if (isAnswered === true) {
+    //=== trueは省略可能
+    if (isAnswered) {
+      return;
+    }
+    //回答した時に回答したという風にする
+    isAnswered = true;
+
     if (li.textContent === quizSet[currentNum].c[0]) {
       li.classList.add("correct");
     } else {
@@ -38,6 +49,8 @@
 
   //現在の問題番号のシャッフルされた選択肢を表示
   function setQuiz() {
+    //選択肢がセットされた時点ではまだ回答はされていない
+    isAnswered = false;
     //現在の問題番号の問題文を代入
     question.textContent = quizSet[currentNum].q;
 
