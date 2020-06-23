@@ -12,9 +12,7 @@
   //現在の問題番号
   let currentNum = 0;
 
-  //現在の問題番号の問題文を代入
-  question.textContent = quizSet[currentNum].q;
-
+  //引数に受け取った配列をシャッフルしてから返す関数
   function shuffle(array) {
     //フィッシャー・イェーツシャッフルのアルゴリズム
     //for文の引数はランダムに選ぶ範囲の終点のインデックス
@@ -29,14 +27,34 @@
     return array;
   }
 
-  //シャッフルされた選択肢の配列
-  //スプレッド演算子で配列の要素を展開
-  //スプレッド演算子を[]の中に書くことで新しいコピーの配列を作れる
-  const shuffledChoices = shuffle([...quizSet[currentNum].c]);
-  // 現在の問題文の選択肢を表示
-  shuffledChoices.forEach((choice) => {
-    const li = document.createElement("li");
-    li.textContent = choice;
-    choices.appendChild(li);
-  });
+  //正誤判定機能
+  function checkAnswer(li) {
+    if (li.textContent === quizSet[currentNum].c[0]) {
+      console.log("correct");
+    } else {
+      console.log("incorrect");
+    }
+  }
+
+  //現在の問題番号のシャッフルされた選択肢を表示
+  function setQuiz() {
+    //現在の問題番号の問題文を代入
+    question.textContent = quizSet[currentNum].q;
+
+    //シャッフルされた選択肢の配列
+    //スプレッド演算子で配列の要素を展開
+    //スプレッド演算子を[]の中に書くことで新しいコピーの配列を作れる
+    const shuffledChoices = shuffle([...quizSet[currentNum].c]);
+    // 現在の問題文の選択肢を表示
+    shuffledChoices.forEach((choice) => {
+      const li = document.createElement("li");
+      li.textContent = choice;
+      li.addEventListener("click", () => {
+        checkAnswer(li);
+      });
+      choices.appendChild(li);
+    });
+  }
+
+  setQuiz();
 }
