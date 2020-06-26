@@ -3,12 +3,26 @@
   const question = document.getElementById("question");
   const choices = document.getElementById("choices");
   const button = document.getElementById("button");
+  const result = document.getElementById("result");
+  //スコアを表示する領域を取得
+  const scoreLabel = document.querySelector("#result > p");
 
-  const quizSet = [
-    { q: "Which one is A?", c: ["A", "B", "C"] },
-    { q: "Which one is D?", c: ["D", "E", "F"] },
-    { q: "Which one is G?", c: ["H", "I", "J"] },
-  ];
+  // 正解は必ず最初の要素
+  const quizSet = shuffle([
+    {
+      q: "Googleの創立者は？",
+      c: [
+        "ラリー・ペイジ＆セルゲイ・ブリン",
+        "ビル・ゲイツ＆スティーブ・ジョブズ",
+        "マーク・ザッカーバーグ＆ジェフ・ベゾス",
+      ],
+    },
+    {
+      q: "初めてiPhoneが発売された年は？",
+      c: ["２００７年", "２００５年", "２００９年"],
+    },
+    { q: "PayPayはどこの国の企業？", c: ["日本", "中国", "韓国"] },
+  ]);
   //現在の問題番号
   let currentNum = 0;
   //回答したかどうかという変数（真偽値）
@@ -100,7 +114,9 @@
 
     //最後の問題だったら
     if (currentNum === quizSet.length - 1) {
-      console.log(`Score: ${score} / ${quizSet.length}`);
+      // console.log(`Score: ${score} / ${quizSet.length}`);
+      scoreLabel.textContent = `Score: ${score} / ${quizSet.length}`;
+      result.classList.remove("hidden");
     } else {
       currentNum++;
       setQuiz();
